@@ -163,39 +163,7 @@ tree.heading("#0", text="ID",anchor=tk.W)
 tree.heading("#1", text="Nome",anchor=tk.W)
 
 tree.pack(side='bottom', fill='both')
-# new_label0 = Label(
-#                 app,
-#                 text='',
-#                 font=("Arial", 10)
-#                 )
-# new_label0.place(x=450, y=370+0*22, width=400, height=20)
-
-# new_label1 = Label(
-#                 app,
-#                 text='',
-#                 font=("Arial", 10)
-#                 )
-# new_label1.place(x=450, y=370+1*22, width=400, height=20)
-
-# new_label2 = Label(
-#                 app,
-#                 text='',
-#                 font=("Arial", 10)
-#                 )
-# new_label2.place(x=450, y=370+2*22, width=400, height=20)
-
-# new_label3 = Label(
-#                 app,
-#                 text='',
-#                 font=("Arial", 10)
-#                 )
-# new_label3.place(x=450, y=370+3*22, width=400, height=20)
-
-# new_label4 = Label(
-#                 app,
-#                 text='',
-#                 font=("Arial", 10)
-#                 )
-# new_label4.place(x=450, y=370+4*22, width=400, height=20)
 
 app.mainloop()
+
+#FIM SEGUNDO EXERCICIO
