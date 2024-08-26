@@ -107,11 +107,11 @@ def getName():
     name.delete(0, END)
 
     if len(names) == 5:
-        new_label0.config(text=names[0])
-        new_label1.config(text=names[1])
-        new_label2.config(text=names[2])
-        new_label3.config(text=names[3])
-        new_label4.config(text=names[4])
+        tree.insert(parent='', index='end', iid=0, text=1, values=(names[0]))
+        tree.insert(parent='', index='end', iid=1, text=2, values=(names[1]))
+        tree.insert(parent='', index='end', iid=2, text=3, values=(names[2]))
+        tree.insert(parent='', index='end', iid=3, text=4, values=(names[3]))
+        tree.insert(parent='', index='end', iid=4, text=5, values=(names[4]))
 
 app = Tk()
 app.title('Uns Exercicios do dia 19-08-24 ai so que com Treeview agora')
@@ -155,7 +155,14 @@ btn_add = Button(
 btn_add.place(x=15, y=35, width=145, height=35)
 
 tree = ttk.Treeview(app)
+tree['columns'] = {'Nome'}
+tree.column("#0", width=120, minwidth=25)
+tree.column("#1", anchor=tk.W, width=120)
 
+tree.heading("#0", text="ID",anchor=tk.W)
+tree.heading("#1", text="Nome",anchor=tk.W)
+
+tree.pack(side='bottom', fill='both')
 # new_label0 = Label(
 #                 app,
 #                 text='',
