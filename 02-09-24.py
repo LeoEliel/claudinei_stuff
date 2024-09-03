@@ -111,34 +111,3 @@ print(deq.popleft())
 
 print(f'\nOs dados armazenados no deque após o popleft() são: {deq}')
 '''
-
-'''
-Leonardo Eliel Dias da Silva - UTF8 - pt-br - 02-09-2024
-CRUD (Create, Reader, Update, Delete - com arquivo JSON - Javascript Object Notation)
-'''
-import os
-import json
-import regex as re
-from tkinter import *
-from tkinter import tk
-from tkinter import ttk, messagebox
-
-#Funções - modo intereativo
-def valida_campo(campo, tipo_campo):
- 
-    if not campo:
-        messagebox.showwarning('Aviso', f'{tipo_campo} inválido.')
-        return False
-    
-    if len(campo) > 50:
-        messagebox.showwarning('Aviso', f'{tipo_campo} muito longo. Tamanho Max -> 50 caracteres')
-
-    pattern = r'^[\p{L}\s]{1,50}$'
-
-    if not re.match(pattern, campo):
-        messagebox.showWarning('Aviso', f'{tipo_campo} inválido. Não use números ou caracteres especiais.')
-        return False
-    
-    preposicoes = ['da', 'de', 'do', 'das', 'dos']
-    campo = ' '.join([parte.capitalize() if parte not in preposicoes else parte for parte in re.sub(r'\s+',' ', campo).split()])
-    return campo
