@@ -1,7 +1,9 @@
 #1
-from collections import Counter
+'''from collections import Counter
 from collections import defaultdict
 from collections import OrderedDict
+from collections import namedtuple
+from collections import deque'''
 
 '''
 lista = ['Marcia','Maria','Alice','Alice','Antônio','Antônio','Pedro','Pedro']
@@ -40,5 +42,103 @@ nome2 = OrderedDict({'André':33, 'João':15, 'Gustavo':28, 'Lais':5, 'Alice':9}
 print(f'\nO dicionario nome2 possui os elementos: {nome2}')
 print(f'\nO tipo de dados do dicionario nome2 eh: {type(nome2)}\n')
 print(f"\nOs dicionários nome1 e nome2 são iguais e estao na mesma ordem?\n{nome1 == nome2}\n")'''
+#8
+'''nome = OrderedDict({'Gustavo':28, 'André':33, 'João':15, 'Alice':9, 'Lais':5})
+print(f'\nO dicionario original é: {nome}')
+nome.move_to_end('André')
+print(f'\nO dicionário foi modificado: {nome}\n')'''
+#9
+'''nome = OrderedDict({'Gustavo':28, 'André':33, 'João':15, 'Alice':9, 'Laís':5})
+print(f'\nO dicionario original é: {nome}')
+nome.move_to_end('Laís', False)
+print(f'\nO dicionário foi modificado: {nome}\n')'''
+#10
+'''animal = namedtuple('animal', 'tipo nome raca idade')'''
+#11
+'''animal = namedtuple('animal', 'tipo, nome, raca, idade')'''
+#12
+'''animal = namedtuple('animal', ['tipo', 'nome', 'raca', 'idade'])
 
+gatos = animal(tipo='gatos', nome='Ravena', raca='Vira-Lata', idade=1)
+cachorros = animal(tipo='cão', nome='Hatiro', raca='rasa apso?', idade=2)
 
+print(f'\nCachorro cadastrado:{cachorros}')
+print(f'\nOs dados do cachorro foram armazenados no formato: {type(cachorros)}\n')
+print(f'\nGato cadastrado:{gatos}')
+print(f'\nOs dados do gato foram armazenados no formato: {type(gatos)}\n')'''
+
+#13
+'''print(f'\nTipo: {cachorros[0]}')
+print(f'\nNome: {cachorros[1]}')
+print(f'\nRaça: {cachorros[2]}')
+print(f'\nIdade: {cachorros[3]}')
+
+print(f'\nTipo: {gatos[0]}')
+print(f'\nNome: {gatos[1]}')
+print(f'\nRaça: {gatos[2]}')
+print(f'\nIdade: {gatos[3]}')'''
+
+#14
+'''print(f'\nTipo:{cachorros.tipo}')
+print(f'\nNome:{cachorros.nome}')
+print(f'\nRaça:{cachorros.raca}')
+print(f'\nIdade:{cachorros.idade}')
+
+print(f'\nTipo: {gatos.tipo}')
+print(f'\nNome: {gatos.nome}')
+print(f'\nRaça: {gatos.raca}')
+print(f'\nIdade: {gatos.idade}\n')'''
+
+#15
+'''deq = deque()
+deq.append('Ariquemes')
+deq.append('Curso de ADS')
+deq.appendleft('Campus')
+deq.appendleft('IFRO')'''
+
+#16
+'''print(f'\nOs dados armazenados no deque são: {deq}')
+print(f'Os dados do deque foram armazenados no formato: {type(deq)}\n')'''
+
+#17
+'''print(f'\nOs dados armazenados no deque são:{deq}')
+print(deq.pop())
+print(f'\nOs dados armazenados após o pop são: {deq}')'''
+
+#18
+'''print(f'\nOs dados armazenados no deque são: {deq}')
+print(deq.popleft())
+
+print(f'\nOs dados armazenados no deque após o popleft() são: {deq}')
+'''
+
+'''
+Leonardo Eliel Dias da Silva - UTF8 - pt-br - 02-09-2024
+CRUD (Create, Reader, Update, Delete - com arquivo JSON - Javascript Object Notation)
+'''
+import os
+import json
+import regex as re
+from tkinter import *
+from tkinter import tk
+from tkinter import ttk, messagebox
+
+#Funções - modo intereativo
+def valida_campo(campo, tipo_campo):
+ 
+    if not campo:
+        messagebox.showwarning('Aviso', f'{tipo_campo} inválido.')
+        return False
+    
+    if len(campo) > 50:
+        messagebox.showwarning('Aviso', f'{tipo_campo} muito longo. Tamanho Max -> 50 caracteres')
+
+    pattern = r'^[\p{L}\s]{1,50}$'
+
+    if not re.match(pattern, campo):
+        messagebox.showWarning('Aviso', f'{tipo_campo} inválido. Não use números ou caracteres especiais.')
+        return False
+    
+    preposicoes = ['da', 'de', 'do', 'das', 'dos']
+    campo = ' '.join([parte.capitalize() if parte not in preposicoes else parte for parte in re.sub(r'\s+',' ', campo).split()])
+    return campo
