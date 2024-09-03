@@ -104,4 +104,92 @@ def criar_botao():
     btn.sair = ttk.Button(app, text='Sair', style='Red.Tbutton', command=app.quit)
     btn.sair.place(x=685, y=220, width=155, height=40)
 
+def criar_campo_pesquisa():
+    global campo_pesquisa, btn_fechar_pesquisa, lb_pesquisar
+    lb_pesquisar = Label(app, text='Digite o nome a pesquisar', font=('Arial', 14), bg='white')
+    lb_pesquisar.place(x=10, y=270, width=220, height=20)
+    campo_pesquisa = Entry(app, font=('Arial', 14))
+    campo_pesquisa.place(x=230, y=270, width=370, height=20)
+    campo_pesquisa.bind('<KeyRelease', filtrar_dados)
+
+    btn_fechar_pesquisa = ttk.Button(app, text='Fechar pesquisa', style='Blue.TButton', command=fechar_pesquisa)
+    btn_fechar_pesquisa.place(x=610, y=265, width=155, height=30)
+
+def fechar_pesquisa():
+    lb_pesquisar.destroy()
+    campo_pesquisa.destroy()
+    btn_fechar_pesquisa.destroy()
+    for i in tree.get_children():
+        tree.delete(i)
+    for pessoa in carregar_dados_arquivo():
+        tree.insert('', 'end', values=pessoa)
+
+def criar_treeview():
+    global tree
+    colunas = ('nome', 'sobrenome', 'genero')
+    tree= ttk.Treeview(app, columns=colunas, show='headings')
+    tree.heading('nome', text='Nome')
+    tree.heading('sobrenome', text='Sobrenome')
+    tree.heading('genero', text='Gênero')
+    tree.column('nome', minwidth=0, width=250)
+    tree.column('sobrenome', minwidth=0, width=250)
+    tree.column('genero', minwidth=0, width=100)
+    tree.place(x=10, y=300, width=1000, height=290)
+    tree.bind("<Double-1>", on_item_double_click)
+
+    return tree
+
+def on_item_double_click():
+    editar_registro()
+    btn_captura['state'] = tk.DISABLED
+    mensagem_var.set('Clique em <<ATUALIZAR DADOS>> ou <<APAGAR REGISTRO>> para excluir')
+
+# Funções para editar ou excluir registros
+def editar_registro():
+    global pessoa_selecionada
+    try:
+        tree_selection = tree.selection()[0]
+        pessoa_selecionada = tree.item(tree_selection, 'values')
+        nome.delete(0, END)
+        sobrenome.delete(0, END)
+        nome.insert(0, pessoa_selecionada[0])
+        sobrenome.insert(0, pessoa_selecionada[1])
+        genero_var.set(pessoa_selecionada[2])
+    except IndexError:
+        messagebox.showwarning('Aviso', 'Selecione um registro para editar!')
+
+def salvar_edicao():
+    global pessoa_selecionada
+    entrada_nome = valida_campo(nome.get(), 'Nome')
+    entrada_sobrenome = valida_campo(sobrenome.get(), 'Sobrenome')
+    genero_selecionado = genero_var.get()
+
+    if not entrada_nome or not entrada_sobrenome or not genero_selecionado:
+        return
+
+    nova_pessoa = {
+        'nome': entrada_nome,
+        'sobrenome': entrada_sobrenome,
+        'genero': genero_selecionado
+    }
+
+    if nova_pessoa == pessoa_selecionada:
+        messagebox.showwarning('Aviso', 'Nenhuma pessoa selecionada...')
+        return
     
+    dados = []
+    arquivo_json = "cadastro_json"
+    if os.path.exists(arquivo_json) and os.path.getsize(arquivo_json) > 0:
+        with open(arquivo_json, 'r') as arquivo:
+            dados = json.load(arquivo)
+    
+    for i, pessoa in enumerate(dados):
+        if pessoa['nome'] == pessoa_selecionada[0] and pessoa['sobrenome'] == pessoa_selecionada[1] and pessoa['genero'] == pessoa_selecionada[2]:
+            dados[i] = nova_pessoa
+            break
+    with open(arquivo_json, 'w') as arquivo:
+        json.dump(dados, arquivo, indent=4)
+    
+    for i in tree.get_children():
+        tree.delete(i)
+    # for pessoa in dados:
