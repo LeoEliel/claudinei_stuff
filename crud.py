@@ -94,23 +94,23 @@ def criar_checkbutton():
 def criar_botao():
     global btn_captura
     style = ttk.Style()
-    style.configure('Green.Tbutton', font=('Arial', 14, 'bold'), background='#90EE90')
-    style.configure('Blue.Tbutton', font=('Arial', 14, 'bold'), background='#ADD8E6')
-    style.configure('Red.Tbutton', font=('Arial', 14, 'bold'), background='#FFB6C1')
+    style.configure('Green.TButton', font=('Arial', 14, 'bold'), background='#90EE90')
+    style.configure('Blue.TButton', font=('Arial', 14, 'bold'), background='#ADD8E6')
+    style.configure('Red.TButton', font=('Arial', 14, 'bold'), background='#FFB6C1')
 
-    btn_captura = ttk.Button(app, text='Inserir dados', style='Green.Tbutton', command=capturar)
+    btn_captura = ttk.Button(app, text='Inserir dados', style='Green.TButton', command=capturar)
     btn_captura.place(x=20, y=220, width=155, height=40)
 
-    btn_pesquisar = ttk.Button(app, text='Pesquisar dados', style='Blue.Tbutton', command=mostrar_campo_pesquisa)
+    btn_pesquisar = ttk.Button(app, text='Pesquisar dados', style='Blue.TButton', command=mostrar_campo_pesquisa)
     btn_pesquisar.place(x=185, y=220, width=155, height=40)
     
-    btn_atualizar = ttk.Button(app, text='Atualizar dados', style='Green.Tbutton', command=salvar_edicao)
+    btn_atualizar = ttk.Button(app, text='Atualizar dados', style='Green.TButton', command=salvar_edicao)
     btn_atualizar.place(x=350, y=220, width=155, height=40)
 
-    btn_apagar = ttk.Button(app, text='Apagar Registro', style='Red.Tbutton', command=lambda: excluir_registro(btn_captura, mensagem_var))
+    btn_apagar = ttk.Button(app, text='Apagar Registro', style='Red.TButton', command=lambda: excluir_registro(btn_captura, mensagem_var))
     btn_apagar.place(x=350, y=220, width=155, height=40)
 
-    btn_sair = ttk.Button(app, text='Sair', style='Red.Tbutton', command=app.quit)
+    btn_sair = ttk.Button(app, text='Sair', style='Red.TButton', command=app.quit)
     btn_sair.place(x=685, y=220, width=155, height=40)
 
 def criar_campo_pesquisa():
