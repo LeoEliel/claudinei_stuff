@@ -6,7 +6,7 @@ import os
 import json
 import regex as re
 from tkinter import *
-from tkinter import tk
+import tkinter as tk
 from tkinter import ttk, messagebox
 
 #Funções - modo intereativo
@@ -38,17 +38,26 @@ def grava_dados_arquivo():
         with open(arquivo_json, 'r') as arquivo:
             return [(linha['nome'], linha['sobrenome'], linha['genero']) for linha in json.load(arquivo)]
         return []
+    
+def carregar_dados_arquivo():
+    arquivo_json = "cadastro_json"
+    if os.path.exists(arquivo_json) and os.path.getsize(arquivo_json) > 0:
+        with open(arquivo_json, 'r') as arquivo:
+            return [(linha['nome'], linha['sobrenome'], linha['genero']) for linha in json.load(arquivo)]
+    return []
+    
+#Funções Tkinter
 
 def configurar_app():
     global mensagem_var
     app.title('Análise e Deenvolvimento de Sistemas')
     app.geometry('1024x600')
-    app.configure(background='F8F8FF')
+    app.configure(background='#F8F8FF')
     app.resizable(True, True)
     app.maxsize(width=1024, height=600)
 
     mensagem_var = StringVar()
-    mensagem_label = Label(app, textvariable=mensagem_var, fg='red', font=(Arial, 14, 'bold'), bg='white')
+    mensagem_label = Label(app, textvariable=mensagem_var, fg='red', font=('Arial', 14, 'bold'), bg='white')
     mensagem_label.place(x=100, y=265, width=700, height=20)
 
 def criar_frame():
@@ -89,20 +98,20 @@ def criar_botao():
     style.configure('Blue.Tbutton', font=('Arial', 14, 'bold'), background='#ADD8E6')
     style.configure('Red.Tbutton', font=('Arial', 14, 'bold'), background='#FFB6C1')
 
-    btn.captura = ttk.Button(app, text='Inserir dados', style='Green.Tbutton', command=capturar)
-    btn.captura.place(x=20, y=220, width=155, height=40)
+    btn_captura = ttk.Button(app, text='Inserir dados', style='Green.Tbutton', command=capturar)
+    btn_captura.place(x=20, y=220, width=155, height=40)
 
-    btn.pesquisar = ttk.Button(app, text='Pesquisar dados', style='Blue.Tbutton', command=mostrar_campo_pesquisa)
-    btn.pesquisar.place(x=185, y=220, width=155, height=40)
+    btn_pesquisar = ttk.Button(app, text='Pesquisar dados', style='Blue.Tbutton', command=mostrar_campo_pesquisa)
+    btn_pesquisar.place(x=185, y=220, width=155, height=40)
     
-    btn.atualizar = ttk.Button(app, text='Atualizar dados', style='Green.Tbutton', command=salvar_edicao)
-    btn.atualizar.place(x=350, y=220, width=155, height=40)
+    btn_atualizar = ttk.Button(app, text='Atualizar dados', style='Green.Tbutton', command=salvar_edicao)
+    btn_atualizar.place(x=350, y=220, width=155, height=40)
 
-    btn.apagar = ttk.Button(app, text='Apagar Registro', style='Red.Tbutton', command=lambda: excluir_registro(btn_captura, mensagem_var))
-    btn.apagar.place(x=350, y=220, width=155, height=40)
+    btn_apagar = ttk.Button(app, text='Apagar Registro', style='Red.Tbutton', command=lambda: excluir_registro(btn_captura, mensagem_var))
+    btn_apagar.place(x=350, y=220, width=155, height=40)
 
-    btn.sair = ttk.Button(app, text='Sair', style='Red.Tbutton', command=app.quit)
-    btn.sair.place(x=685, y=220, width=155, height=40)
+    btn_sair = ttk.Button(app, text='Sair', style='Red.Tbutton', command=app.quit)
+    btn_sair.place(x=685, y=220, width=155, height=40)
 
 def criar_campo_pesquisa():
     global campo_pesquisa, btn_fechar_pesquisa, lb_pesquisar
@@ -192,4 +201,90 @@ def salvar_edicao():
     
     for i in tree.get_children():
         tree.delete(i)
-    # for pessoa in dados:
+    for pessoa in dados:
+        tree.insert('', 'end', values={pessoa['nome'], pessoa['sobrenome'], pessoa['genero']})
+    
+    nome.delete(0, END)
+    sobrenome.delete(0, END)
+    genero_var.set(None)
+    pessoa_selecionada = None
+    btn_captura['state'] = NORMAL
+    mensagem_var.set("")
+
+def excluir_registro(btn_captura, mensagem_var):
+    try:
+        tree_selection = tree.selection()[0]
+        pessoa_selecionada = tree.item(tree_selection,'values')
+        confirm = messagebox.askyesno("Confirmar Exclusão", "Tem certeza que deseja excluir esse registro?")
+        if confirm:
+            dados = []
+            arquivo_json = "cadastro.json"
+            if os.path.exists(arquivo_json) and os.path.getsize(arquivo_json) > 0:
+                with open(arquivo_json, 'r') as arquivo:
+                    dados = json.load(arquivo)
+            
+            dados = [pessoa for pessoa in dados if not (pessoa['nome'] == pessoa_selecionada[0] and pessoa['sobrenome'] == pessoa_selecionada[1] and pessoa['genero'] == pessoa_selecionada[2])]
+            
+            with open(arquivo_json, 'w') as arquivo:
+                dados = json.dump(dados, arquivo, indent=4)
+            
+            tree.delete(tree_selection)
+            
+    except IndexError():
+        messagebox.showwarning('Aviso', 'Selecione um registro para excluir!')
+    finally:
+        btn_captura['state'] = 'normal'
+        mensagem_var.set("")
+
+def capturar():
+    entrada_nome = valida_campo(nome.get(), 'Nome')
+    entrada_sobrenome = valida_campo(sobrenome.get(), 'Sobrenome')
+    genero_selecionado = genero_var.get()
+    
+    #Verifica o gênero selecionado
+    if genero_selecionado not in ['Masculino', 'Feminino', 'Outros']:
+        messagebox.showwarning('Aviso', 'Selecione um gênero.')
+        return
+
+    if not entrada_nome or not entrada_sobrenome:
+        return
+    
+    pessoa = {
+        'nome': entrada_nome,
+        'sobrenome': entrada_sobrenome,
+        'genero': genero_selecionado
+    }
+    
+    grava_dados_arquivo(pessoa)
+    tree.insert('', 'end', values=(pessoa['nome'], pessoa['sobrenome'], pessoa['genero']))
+    
+    nome.delete(0, 'END')
+    sobrenome.delete(0, 'END')
+    genero_var.set(None)
+    
+def mostrar_campo_pesquisa():
+    mensagem_var.set("")
+    criar_campo_pesquisa()
+
+def filtrar_dados(event):
+    for i in tree.get_children():
+        tree.delete(i)
+    termo_pesquisa = campo_pesquisa.get()
+    dados_filtrados = [pessoa for pessoa in carregar_dados_arquivo() if termo_pesquisa.lower() in pessoa[0].lower()]
+    for pessoa in dados_filtrados:
+        tree.insert('', 'end', values=pessoa)
+        
+#Finalmente a porcaria das configs iniciais do Tkinter
+
+if __name__ == '__main__':
+    app = Tk()
+    configurar_app()
+    frame = criar_frame()
+    criar_labels(frame)
+    nome, sobrenome = criar_entry(frame)
+    genero_var = criar_checkbutton()
+    criar_botao()
+    tree = criar_treeview()
+    for pessoa in carregar_dados_arquivo():
+        tree.insert('', 'end', values=pessoa)
+    app.mainloop()
