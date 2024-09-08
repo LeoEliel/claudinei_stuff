@@ -22,25 +22,28 @@ def valida_campo(campo, tipo_campo):
     pattern = r'^[\p{L}\s]{1,50}$'
 
     if not re.match(pattern, campo):
-        messagebox.showWarning('Aviso', f'{tipo_campo} inválido. Não use números ou caracteres especiais.')
+        messagebox.showwarning('Aviso', f'{tipo_campo} inválido. Não use números ou caracteres especiais.')
         return False
     
     preposicoes = ['da', 'de', 'do', 'das', 'dos']
     campo = ' '.join([parte.capitalize() if parte not in preposicoes else parte for parte in re.sub(r'\s+',' ', campo).split()])
     return campo
 
-def grava_dados_arquivo():
+def grava_dados_arquivo(pessoa):
 
     arquivo_json = 'cadastro.json'
     dados = []
 
     if os.path.exists(arquivo_json) and os.path.getsize(arquivo_json) > 0:
         with open(arquivo_json, 'r') as arquivo:
-            return [(linha['nome'], linha['sobrenome'], linha['genero']) for linha in json.load(arquivo)]
-        return []
+            dados = json.load(arquivo)
+        
+        dados.append(pessoa)
+        with open(arquivo_json, 'w') as arquivo:
+            json.dump(dados, arquivo, indent=4) 
     
 def carregar_dados_arquivo():
-    arquivo_json = "cadastro_json"
+    arquivo_json = "cadastro.json"
     if os.path.exists(arquivo_json) and os.path.getsize(arquivo_json) > 0:
         with open(arquivo_json, 'r') as arquivo:
             return [(linha['nome'], linha['sobrenome'], linha['genero']) for linha in json.load(arquivo)]
@@ -119,7 +122,7 @@ def criar_campo_pesquisa():
     lb_pesquisar.place(x=10, y=270, width=220, height=20)
     campo_pesquisa = Entry(app, font=('Arial', 14))
     campo_pesquisa.place(x=230, y=270, width=370, height=20)
-    campo_pesquisa.bind('<KeyRelease', filtrar_dados)
+    campo_pesquisa.bind('<KeyRelease>', filtrar_dados)
 
     btn_fechar_pesquisa = ttk.Button(app, text='Fechar pesquisa', style='Blue.TButton', command=fechar_pesquisa)
     btn_fechar_pesquisa.place(x=610, y=265, width=155, height=30)
@@ -258,8 +261,8 @@ def capturar():
     grava_dados_arquivo(pessoa)
     tree.insert('', 'end', values=(pessoa['nome'], pessoa['sobrenome'], pessoa['genero']))
     
-    nome.delete(0, 'END')
-    sobrenome.delete(0, 'END')
+    nome.delete(0, 'end')
+    sobrenome.delete(0, 'end')
     genero_var.set(None)
     
 def mostrar_campo_pesquisa():
@@ -274,7 +277,7 @@ def filtrar_dados(event):
     for pessoa in dados_filtrados:
         tree.insert('', 'end', values=pessoa)
         
-#Finalmente a porcaria das configs iniciais do Tkinter
+#Finalmente a porcaria das configs iniciais do Tkinter (desculpe professsor :v)
 
 if __name__ == '__main__':
     app = Tk()
