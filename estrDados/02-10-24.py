@@ -138,7 +138,7 @@ print(f'\nO espaço na memória ocupado por um item do array do tipo int é: {co
 vetor = array('i', [1,2,3,4,5])
 
 print(f'\nO valor do elemento na posicao zero do array é: {vetor[0]}')
-print(f'\nO valor do elemento na posicao dois do array é: {vetor[0]}')
+print(f'\nO valor do elemento na posicao dois do array é: {vetor[2]}')
 
 del vetor[1]
 
@@ -166,7 +166,7 @@ print(f'\nO espaço total ocupado em memória pelo array tipo "u" em bytes é {l
 print(f'\nO número de vezes que a letra a ocorre no array é: {vetor.count("a")}\n')'''
 
 #Manipulando arrays com numpy
-import numpy as np
+'''import numpy as np'''
 
 #Cria um array vazio com número de elementos definido
 
@@ -188,26 +188,23 @@ print(f'\nO tipo de array criado é {type(vetor)}\n')'''
 '''import numpy as np
 
 matriz_0 = np.zeros((3,4))
-print(matriz_0)
+print(matriz_0)'''
 
 #Criando matriz de zeros p/ imagens
-
-import numpy as np
+'''import numpy as np
 from PIL import Image
 
 # Cria matriz de zeros -> imagem preta
-#256x256 pixels, com 3 canais de cores(RGB)
 
+# 256x256 pixels, com 3 canais de cores(RGB)
 matriz = np.zeros((256, 256, 3), dtype=np.uint8)
 
 print(f'\n{matriz}')
 
 #Cria imagem PIL a partir da matriz
-
 img = Image.fromarray(matriz)
 
 #Mostra a imagem na tela
-
 img.show()'''
 
 #Criando uma matriz de varios numeros um
@@ -236,15 +233,15 @@ matriz = matriz + 5*matriz_de_uns
 print(f'\nMatriz original  após add o valor 5')
 print(f'\n{matriz}')'''
 
-'''#Matriz com valores arranjados
-x = np.arrange(10)
+'''import matplotlib.pyplot as plt
+import numpy as np
+
+#Matriz com valores arranjados
+x = np.arange(10)
 print(f'\n{x}\n')
 
 #calcula y = x^2 para cada elemento x
 y=x**2
-
-import matplotlib.pylot as plt
-import numpy as np
 
 #Cria grafico
 plt.figure(figsize=(8, 6)) #define tamanho da figura
@@ -254,9 +251,11 @@ plt.xlabel('x')#Define rótulo de eixo x
 plt.ylabel('y')#Define rótulo de eixo y
 plt.grid(True)#add grid para visualizar
 plt.show()#Mostra o gráfico?
-
+'''
 #Criando uma matriz de valores arranjados por meio de amostras
 
+'''import matplotlib.pyplot as plt
+import numpy as np
 #Gera 100 valores de x igualmente espaçados entre -10 e 10
 x = np.linspace(-10, 10, 100)
 
@@ -266,7 +265,7 @@ print(f'\n{x}\n')
 y=x**2
 
 print(f'\n Matriz com equação calculada -> Calcula o quadrado de x para cada y')
-print(f'\n{x}\n')
+print(f'\n{x}\n')   
 #Cria grafico
 plt.figure(figsize=(8, 6)) #define tamanho da figura
 plt.plot(x, y) #Plota y contra x
@@ -274,7 +273,7 @@ plt.title('Gráfico de y = x^2') #Difine titulo de gráfico
 plt.xlabel('x')#Define rótulo de eixo x
 plt.ylabel('y')#Define rótulo de eixo y
 plt.grid(True)#add grid para visualizar
-plt.show()#Mostra o gráfico?'''
+plt.show()#Mostra o gráfico'''
 
 #Criando uma matriz com os mesmos números - Constantes:
 
@@ -301,9 +300,11 @@ import numpy as np
 #Cria uma matriz identidade 3x3
 matriz_id = np.eye(3)
 print(f'\nMatriz identidade com zeros e uns\n')
-print(f'\n{matriz_id}\n')'''
+print(f'\n{matriz_id}\n')
+'''
 
-'''#Criando matriz com valores diagonais
+'''
+#Criando matriz com valores diagonais
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -318,8 +319,8 @@ print(f'\{vetor}\n')
 resultado = np.dot(matriz_t, vetor)
 print(f'\Multiplicacao da matriz pelo vetor\n')
 print(f'\{resultado}\n')'''
-
-'''import numpy as np
+'''
+import numpy as np
 import matplotlib.pyplot as plt
 
 #Gera os dados para o eixo x e y
@@ -329,10 +330,11 @@ eixo_y = np.linspace(0, 9, 20)
 #Cria um gráfico de linha
 
 plt.plot(eixo_x, eixo_y, 'o')
-
+plt.grid(True)
 #Exibe o gráfico
 plt.show()
-
+'''
+'''
 #Criando um gráfico 2D - matriz bidirecional - ruidos aleatorios / mapa de calor
 import numpy as np
 
@@ -341,22 +343,24 @@ import matplotlib.pyplot as plt
 image = np.random.rand(30, 30)
 plt.imshow(image, cmap=plt.cm.jet)
 plt.colorbar()
-plt.show()'''
+plt.show()
+'''
 
-'''#Criando matriz e gráficos tridimensionais
+
+#Criando matriz e gráficos tridimensionais
 
 #Importando bibliotecas
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_tookits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
 
 #Cria matriz 2D
 #Cada lista dentro da lista principal representa uma linha da matriz
 
 matriz = np.array([
-                    [1, 1, 1, 2]
-                    [1, 1, 2, 3.33]
-                    [1, 1, 223, 10]
+                    [1, 1, 1, 2],
+                    [1, 1, 2, 3.33],
+                    [1, 1, 223, 10],
                     [1, 1, 2, 3]
 ])
 
@@ -380,4 +384,4 @@ X, Y = np.meshgrid(rows, cols)
 ax.plot_surface(X, Y, matriz)
 
 #Exibe o gráfico
-plt.show()'''
+plt.show()
