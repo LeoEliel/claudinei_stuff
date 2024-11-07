@@ -439,25 +439,26 @@ def insertEnding(head, tail, value):
     return head, tail
 
 def updateNode(head, tail):
+    
+    this_node = head
+    pos = 1
+    found = False
+
     while True:
         to_be_found = int(input('\nDigite o valor que você deseja alterar ou tecle -1 para sair:\n'))
 
         if to_be_found == -1:
             print('\nOperação encerrada...\n')
             break
-
-        this_node = head
-        pos = 1
-        found = False
-
+        
         while this_node is not None:
             if this_node['value'] == to_be_found:
                 
                 found = True
                 break
-        
-            this_node = this_node['next']
-            pos += 1
+            else:
+                this_node = this_node['next']
+                pos += 1
         
         if not found:
             this_node = tail
@@ -467,9 +468,9 @@ def updateNode(head, tail):
                 
                     found = True
                     break
-        
-                this_node = this_node['prev']
-                pos -= 1            
+                else:
+                    this_node = this_node['prev']
+                    pos -= 1            
 
         if found:
             print(f'\nO valor {to_be_found} foi encontrado na posicao: {pos}\n')
@@ -481,13 +482,9 @@ def updateNode(head, tail):
         else:
             print('\nValor nao encontrado...\n')
         
-        return head, tail
+    return head, tail
 
 def deleteNode(head, tail):
-    this_node = head
-    prev_node = None
-    pos = 1
-    found = False
     
     while True:
         
@@ -497,14 +494,19 @@ def deleteNode(head, tail):
             print('Operacao encerrada...\n')
             break
 
+        this_node = head
+        prev_node = None
+        pos = 1
+        found = False
 
         while this_node is not None:
             if this_node['value'] == to_be_found:
                 found = True
                 break
-            prev_node = this_node
-            this_node = this_node['next']
-            pos += 1
+            else:
+                prev_node = this_node
+                this_node = this_node['next']
+                pos += 1
 
         if not found:
             this_node = tail
@@ -515,10 +517,10 @@ def deleteNode(head, tail):
                 
                     found = True
                     break
-                
-                prev_node = this_node
-                this_node = this_node['prev']
-                pos -= 1
+                else:
+                    prev_node = this_node
+                    this_node = this_node['prev']
+                    pos -= 1
 
 
         if found:
@@ -534,10 +536,11 @@ def deleteNode(head, tail):
             
                 print(f'\nO valor na posicao {pos} foi excluido\n')
             else:
-                print('\nExclusao cancelada.\n')    
+                print('\nExclusao cancelada.\n')
+                break    
         else:
             print('\nValor nao encontrado...\n')
-        return head, tail
+    return head, tail
 
 def main():
 
