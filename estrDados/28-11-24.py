@@ -1,3 +1,4 @@
+
 '''def criar_no(valor):
     return {
             "valor": valor,
@@ -97,23 +98,49 @@ for item in reversed(pilha):
     print(item)'''
 
 
-
-
-
 '''
-a) Definir todos os requisitos necessários para resolver o problema. 
-b) Utilizar pilha nativa do Python, para resolver o processo. 
-c) ... 
-d) ... 
+Autor: Leonardo Eliel Dias da Silva
+Linguagem: Python
+Data: 28-11-2024
+
+Exercício: imagine uma demanda no qual você precisa desenvolver uma 
+ferramenta de análise para um software matemático.  
+Cenário: Ferramenta de Análise para Software Matemático 
+Considere que você é um programador da empresa MatheSoftware Ltda. 
+Esta empresa é líder no desenvolvimento de softwares matemáticos. 
+Recentemente, ela lançou uma funcionalidade que permite aos usuários 
+inserirem suas próprias fórmulas matemáticas para serem resolvidas pelo 
+software. No entanto, os usuários têm relatado erros quando inserem fórmulas 
+com parênteses mal formatados. 
+O departamento de suporte técnico está sobrecarregado com chamados, 
+e a equipe de desenvolvimento está buscando uma solução rápida para verificar 
+a formatação dos parênteses nas fórmulas inseridas pelos usuários. 
+Sua tarefa é desenvolver uma ferramenta que verifique se, em uma 
+expressão matemática, os parênteses estão corretamente balanceados. Esta 
+ferramenta será integrada ao software principal para alertar o usuário 
+imediatamente se a fórmula inserida contém parênteses mal formatados. 
+Com base na demanda do cenário, sem utilizar inteligência artificial você 
+deve: 
+a) Definir todos os requisitos necessários para resolver o problema.
+
+b) Utilizar pilha nativa do Python, para resolver o processo e solicitar que o usuário insira uma expressão matemática
+
+c) Garantir que a pilha com o valor inserido pelo usuário não esta vazia para que haja algo a ser verificado
+
+d) Incrementar a variavel 'result' caso haja um abre parenteses '(' e decrementar esta mesma variavel caso haja um fecha parenteses ')'
+    dentro da funcao 'parenthesis_counter'
+
+e) Verificar se a variavel 'result'  termina o laço de iteração com valor zero.
+    Caso assim seja então todos os parenteses abertos foram fechados, caso contrário então nem todos os pares de parenteses
+    foram fechados
+
+f) Retornar o resultado e exibir para o usuário.
 ...  
-Para definir o restante dos requisitos considere as entradas e saídas: - Entrada: "(1 + 2)" - Saída: True - Entrada: "1 + 2)" -Saída: False - Entrada: "((3 * 4) + 5)" - Saída: True - Entrada: "((3 * 4 + 5)" - Saída: False 
-9 
-Claudinei Oliveira – Estrutura de dados 
-28-11-2024 
-Após definir todos os requisitos necessários para resolver o problema, 
-desenvolva o script em um único arquivo.py usando a abordagem por funções, 
-Apresente no início do script em comentário longo: - O autor. - A linguagem que o módulo aceita. - A data em que foi desenvolvido. - E o enunciando completo que você utilizou para criar o script: - Após, feche o comentário longo e apresente o script completo em Python 
-rodando. 
+Para definir o restante dos requisitos considere as entradas e saídas: 
+- Entrada: "(1 + 2)" - Saída: True 
+- Entrada: "1 + 2)" -Saída: False 
+- Entrada: "((3 * 4) + 5)" - Saída: True 
+- Entrada: "((3 * 4 + 5)" - Saída: False
 '''
 
 def criar_pilha():
