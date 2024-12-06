@@ -143,8 +143,8 @@ Para definir o restante dos requisitos considere as entradas e saídas:
 - Entrada: "((3 * 4 + 5)" - Saída: False
 '''
 
-def criar_pilha():
-    return []
+def criar_pilha(list):
+    return [item for item in list]
 
 def push(pilha, valor):
     pilha.append(valor)
@@ -163,28 +163,25 @@ def peek(pilha):
 def is_empty(pilha):
     return pilha == []
 
-def parenthesis_counter(stack):
-    
-    result = 0
-    i = 0
-    if is_empty(stack):
+def parenthesis_counter(expression):
+
+    result, item = 0, 0
+
+    if is_empty(expression):
         return True
     
-    while i < size(stack):
+    for item in expression:
 
-
-        if pop(stack) == "(":
+        if item == "(":
             result += 1
-        if pop(stack) == ")":
+        if item == ")":
             result -= 1
-        i += 1
+            if result < 0:
+                return False
 
     if result == 0:
         return True
     else:
         return False
 
-
-expression = criar_pilha()
-list(input("Insira a sua expressão: "))
-print(parenthesis_counter(expression))
+print(parenthesis_counter(criar_pilha(input("Insira a sua expressão: "))))
