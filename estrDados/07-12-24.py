@@ -195,7 +195,7 @@ def Enqueue(fila, valor):
 
 def Dequeue(fila):
     if IsEmpty(fila):
-        print(f'\nEsta vazia a fila yaaaaay\n')
+        print(f'\nEsta vazia a fila\n')
         return
 
     temp = fila['inicio']
@@ -298,4 +298,15 @@ while este_envio != buffer_printer['fim']:
     este_envio = este_envio['proximo']
     Dequeue(buffer_printer)
 
-MostraFila(buffer_printer)
+# Exercícios – Filas – abordagem por funções - queue(), enqueue(), dequeue() e isEmpty(). 
+# Enunciado: Sistema de Chamados de Atendimento 
+# Você foi contratado para desenvolver um sistema para um call center. O 
+# sistema tem como principal objetivo gerenciar chamados de clientes que 
+# desejam suporte técnico. Os chamados devem ser processados na ordem em 
+# que foram recebidos. 
+# Defina as funcionalidades esperadas:
+
+#-> Sistema de call center.
+# Gerenciar chamados de clientes em busca de suporte técnico.
+# Receber os chamados.
+# Processar os chamados.
