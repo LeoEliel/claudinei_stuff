@@ -280,23 +280,23 @@ Sua tarefa é
 '''
 # Exercícios – Filas – abordagem por funções 
 
-buffer_printer = Queue()
-MostraFila(buffer_printer)
+lista_chamados = Queue()
+MostraFila(lista_chamados)
 
 for i in range(0, 22):
-    qtd_pags = np.random.randint(1, 20)
-    print(f'\nRecebendo solicitação do usuário {i+1}º: {qtd_pags} páginas p/ impressão\n')
-    Enqueue(buffer_printer, qtd_pags)
+    pedido = np.random.randint(1, 20)
+    print(f'\nRecebendo solicitação do usuário {i+1}º: {pedido} páginas p/ impressão\n')
+    Enqueue(lista_chamados, pedido)
 
-este_envio = Dequeue(buffer_printer)
+este_chamado = Dequeue(lista_chamados)
 user_number = 1
 
-while este_envio != buffer_printer['fim']:
+while este_chamado != lista_chamados['fim']:
 
-    print(f'\nTrabalho do usuário {user_number}\n -> {este_envio['valor']} páginas enviadas')
+    print(f'\nTrabalho do usuário {user_number}\n -> {este_chamado['valor']} páginas enviadas')
     user_number += 1
-    este_envio = este_envio['proximo']
-    Dequeue(buffer_printer)
+    este_chamado = este_chamado['proximo']
+    Dequeue(lista_chamados)
 
 # Exercícios – Filas – abordagem por funções - queue(), enqueue(), dequeue() e isEmpty(). 
 # Enunciado: Sistema de Chamados de Atendimento 
@@ -307,6 +307,25 @@ while este_envio != buffer_printer['fim']:
 # Defina as funcionalidades esperadas:
 
 #-> Sistema de call center.
-# Gerenciar chamados de clientes em busca de suporte técnico.
+# Criar a lista de chamados
 # Receber os chamados.
 # Processar os chamados.
+#Liberar o chamado.
+
+lista_chamados = Queue()
+MostraFila(lista_chamados)
+
+for i in range(0, 5):
+    pedido = "weodpweodkweod"
+    print(f'\nRecebendo solicitação do usuário {i+1}º: {pedido}\n')
+    Enqueue(lista_chamados, pedido)
+
+este_chamado = Dequeue(lista_chamados)
+user_number = 1
+
+while este_chamado != lista_chamados['fim']:
+
+    print(f'\nTrabalho do usuário {user_number}\n -> Chamado: {este_chamado['valor']}')
+    user_number += 1
+    este_chamado = este_chamado['proximo']
+    Dequeue(lista_chamados)
