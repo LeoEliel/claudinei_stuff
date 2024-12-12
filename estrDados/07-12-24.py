@@ -159,10 +159,10 @@ def Enqueue(fila, valor):
 def MostraNo(no):
     print(f'\nValor do Nó -> {no['valor']}\n')
 
-fila = Queue()
+'''fila = Queue()
 Enqueue(fila, 53)
 primeiro_no = fila['inicio']
-MostraNo(primeiro_no)
+MostraNo(primeiro_no)'''
 
 # Implementação Completa de FILA em Python usando abordagem baseada em 
 # funções - queue(), enqueue(), dequeue(), e isEmpty()
@@ -227,7 +227,7 @@ def MostraFila(fila):
         print(este_no['valor'])
         este_no = este_no['proximo']
     print()
-
+'''
 fila = Queue()
 
 print(f'\nA fila está vazia? {IsEmpty(fila)}\n')
@@ -258,7 +258,7 @@ print(f'\nNovo início da fila é: {MostraInicio(fila)}\n')
 #     este_no = este_no['proximo']
 # print()
 MostraFila(fila) #Esta linha chama a função que otimiza a operação de exibir os elementos é chamada
-
+'''
 '''
 Exercício de Otimização e Justificação de Código 
 No script fornecido, que implementa uma fila através de uma lista 
@@ -280,7 +280,7 @@ Sua tarefa é
 '''
 # Exercícios – Filas – abordagem por funções 
 
-lista_chamados = Queue()
+'''lista_chamados = Queue()
 MostraFila(lista_chamados)
 
 for i in range(0, 22):
@@ -296,7 +296,7 @@ while este_chamado != lista_chamados['fim']:
     print(f'\nTrabalho do usuário {user_number}\n -> {este_chamado['valor']} páginas enviadas')
     user_number += 1
     este_chamado = este_chamado['proximo']
-    Dequeue(lista_chamados)
+    Dequeue(lista_chamados)'''
 
 # Exercícios – Filas – abordagem por funções - queue(), enqueue(), dequeue() e isEmpty(). 
 # Enunciado: Sistema de Chamados de Atendimento 
@@ -304,28 +304,43 @@ while este_chamado != lista_chamados['fim']:
 # sistema tem como principal objetivo gerenciar chamados de clientes que 
 # desejam suporte técnico. Os chamados devem ser processados na ordem em 
 # que foram recebidos. 
+
 # Defina as funcionalidades esperadas:
 
 #-> Sistema de call center.
-# Criar a lista de chamados
-# Receber os chamados.
-# Processar os chamados.
-#Liberar o chamado.
+# - Criar a lista de chamados
+# - Receber os chamados.
+# - Processar os chamados.
+# - Liberar o chamado.
+
+#Defina os critérios: 
+# - Utilizar as funções queue(), enqueue(), dequeue(), e isEmpty().
+# - Solicitar entrada do usuário
+# - Registrar as entradas dos usuários na fila
+# - Processar estas entradas
+# - Finalizar processamento
+
+def RecebeChamados(lista_chamados):
+    user_number = 1
+    continuar = True
+    while continuar == True:
+        pedido = input(f'Insira a solicitação do usuário {user_number}: ')
+        print(f'\nRecebendo solicitação do usuário {user_number}º: {pedido}\n')
+        Enqueue(lista_chamados, pedido)
+        user_number += 1
+        opt = input('Deseja parar?(S/N): ')
+        if opt == 'S' or opt == 's':
+            continuar = False
+
+    return lista_chamados
 
 lista_chamados = Queue()
+lista_chamados = RecebeChamados(lista_chamados)
 MostraFila(lista_chamados)
-
-for i in range(0, 5):
-    pedido = "weodpweodkweod"
-    print(f'\nRecebendo solicitação do usuário {i+1}º: {pedido}\n')
-    Enqueue(lista_chamados, pedido)
-
 este_chamado = Dequeue(lista_chamados)
 user_number = 1
 
 while este_chamado != lista_chamados['fim']:
-
-    print(f'\nTrabalho do usuário {user_number}\n -> Chamado: {este_chamado['valor']}')
+    print(f'\nProcessamento da chamada do usuário {user_number}\n -> Chamado: {este_chamado['valor']}\nChamado processado.')
     user_number += 1
-    este_chamado = este_chamado['proximo']
-    Dequeue(lista_chamados)
+    este_chamado = Dequeue(lista_chamados)
